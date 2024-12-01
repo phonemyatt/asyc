@@ -108,7 +108,10 @@ function App() {
             <PersonalEvents currentDate={currentDate} />
           </div>
           <div className="flex justify-center lg:justify-start">
-            <HolidayList showHolidays={showHolidays} />
+            <HolidayList 
+              showHolidays={showHolidays} 
+              currentDate={currentDate}
+            />
           </div>
         </div>
       </div>
