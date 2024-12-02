@@ -3,6 +3,8 @@ import { Calendar } from './components/Calendar';
 import { HolidayList } from './components/HolidayList';
 import { PersonalEvents } from './components/PersonalEvents';
 import { Settings } from 'lucide-react';
+import { Event } from './types/events';
+import { demoEvents } from './data/demoEvents';
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -10,6 +12,7 @@ function App() {
   const [size, setSize] = useState<'sm' | 'md' | 'lg'>('lg');
   const [showHolidays, setShowHolidays] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const [events, setEvents] = useState<Event[]>(demoEvents);
 
   const themes = [
     { id: 'default', name: 'Baby Blue' },
@@ -24,6 +27,14 @@ function App() {
     { id: 'md', name: 'Medium' },
     { id: 'lg', name: 'Large' },
   ];
+
+  const handleAddEvent = (newEvent: Event) => {
+    setEvents(prevEvents => [...prevEvents, newEvent]);
+  };
+
+  const handleDeleteEvent = (id: string) => {
+    setEvents(prevEvents => prevEvents.filter(event => event.id !== id));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-pink-50">
@@ -102,13 +113,22 @@ function App() {
               theme={theme}
               size={size}
               showHolidays={showHolidays}
+              events={events}
             />
           </div>
           <div className="flex justify-center">
-            <PersonalEvents currentDate={currentDate} />
+            <PersonalEvents
+              currentDate={currentDate}
+              events={events}
+              onAddEvent={handleAddEvent}
+              onDeleteEvent={handleDeleteEvent}
+            />
           </div>
           <div className="flex justify-center lg:justify-start">
-            <HolidayList showHolidays={showHolidays} />
+            <HolidayList 
+              showHolidays={showHolidays} 
+              currentDate={currentDate}
+            />
           </div>
         </div>
       </div>
