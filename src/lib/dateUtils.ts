@@ -1,4 +1,4 @@
-import { format, isSameMonth } from 'date-fns';
+import { isSameMonth } from 'date-fns';
 import { Holiday } from '../types/calendar';
 
 export const getMonthHolidays = (

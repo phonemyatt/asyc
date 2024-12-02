@@ -7,12 +7,14 @@ interface AddEventModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAdd: (title: string, date: Date, type: EventType) => void;
+  currentDate: Date;
 }
 
 export const AddEventModal: React.FC<AddEventModalProps> = ({
   isOpen,
   onClose,
   onAdd,
+  currentDate,
 }) => {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
@@ -20,13 +22,11 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      // Format today's date as YYYY-MM-DD for the date input
-      const today = format(new Date(), 'yyyy-MM-dd');
-      setDate(today);
+      setDate(format(currentDate, 'yyyy-MM-dd'));
       setTitle('');
       setType('reminder');
     }
-  }, [isOpen]);
+  }, [isOpen, currentDate]);
 
   if (!isOpen) return null;
 
@@ -37,7 +37,6 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
       setTitle('');
       setDate('');
       setType('reminder');
-      onClose();
     }
   };
 
@@ -47,6 +46,7 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
         <button
           onClick={onClose}
           className="absolute right-4 top-4 p-2 hover:bg-blue-50 rounded-full transition-colors text-blue-500"
+          aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
@@ -55,10 +55,11 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-blue-600 mb-2">
+            <label htmlFor="title" className="block text-sm font-medium text-blue-600 mb-2">
               Event Title
             </label>
             <input
+              id="title"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -70,10 +71,11 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-blue-600 mb-2">
+            <label htmlFor="date" className="block text-sm font-medium text-blue-600 mb-2">
               Date
             </label>
             <input
+              id="date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -83,10 +85,11 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-blue-600 mb-2">
+            <label htmlFor="type" className="block text-sm font-medium text-blue-600 mb-2">
               Event Type
             </label>
             <select
+              id="type"
               value={type}
               onChange={(e) => setType(e.target.value as EventType)}
               className="w-full p-2 border-2 border-blue-200 rounded-lg focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"

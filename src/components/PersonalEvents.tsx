@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
-import { EventItem } from './events/EventItem';
+import { EventList } from './events/EventList';
 import { AddEventModal } from './events/AddEventModal';
 import { Event, EventType } from '../types/events';
-import { demoEvents } from '../data/demoEvents';
 import { isSameMonth } from 'date-fns';
 
 interface PersonalEventsProps {
   currentDate: Date;
+  events: Event[];
+  onAddEvent: (event: Event) => void;
+  onDeleteEvent: (id: string) => void;
 }
 
-export const PersonalEvents: React.FC<PersonalEventsProps> = ({ currentDate }) => {
-  const [events, setEvents] = useState<Event[]>(demoEvents);
+export const PersonalEvents: React.FC<PersonalEventsProps> = ({
+  currentDate,
+  events,
+  onAddEvent,
+  onDeleteEvent,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const monthEvents = events.filter(event => 
@@ -25,11 +31,8 @@ export const PersonalEvents: React.FC<PersonalEventsProps> = ({ currentDate }) =
       date,
       type,
     };
-    setEvents([...events, newEvent]);
-  };
-
-  const handleDeleteEvent = (id: string) => {
-    setEvents(events.filter(event => event.id !== id));
+    onAddEvent(newEvent);
+    setIsModalOpen(false);
   };
 
   return (
@@ -38,33 +41,23 @@ export const PersonalEvents: React.FC<PersonalEventsProps> = ({ currentDate }) =
         <h3 className="text-xl font-bold text-blue-600">Personal Events</h3>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="p-2 hover:bg-blue-50 rounded-full transition-colors text-blue-500"
+          className="p-2 hover:bg-blue-50 rounded-full transition-colors text-blue-500 hover:text-blue-600"
           aria-label="Add new event"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-6 h-6" />
         </button>
       </div>
       
-      <div className="space-y-3">
-        {monthEvents.length === 0 ? (
-          <p className="text-blue-400 text-center py-4">
-            No events this month
-          </p>
-        ) : (
-          monthEvents.map(event => (
-            <EventItem
-              key={event.id}
-              event={event}
-              onDelete={handleDeleteEvent}
-            />
-          ))
-        )}
-      </div>
+      <EventList 
+        events={monthEvents}
+        onDelete={onDeleteEvent}
+      />
 
       <AddEventModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onAdd={handleAddEvent}
+        currentDate={currentDate}
       />
     </div>
   );
