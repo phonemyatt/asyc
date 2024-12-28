@@ -11,7 +11,7 @@ interface EventItemProps {
 
 export const EventItem: React.FC<EventItemProps> = ({ event, onDelete }) => {
   return (
-    <div className="flex items-center justify-between p-3 rounded-full hover:bg-blue-50 transition-colors border-2 border-blue-100">
+    <div className="flex items-center justify-between p-3 rounded-full hover:bg-blue-50 transition-colors border-4 border-blue-200">
       <div className="flex items-center space-x-3">
         <div className={cn(
           'w-8 h-8',

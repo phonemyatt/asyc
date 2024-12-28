@@ -29,23 +29,17 @@ export const Calendar: React.FC<CalendarProps> = ({
   showHolidays = true,
   events = [],
 }) => {
-  const monthStart = startOfMonth(currentDate);
-  const monthEnd = endOfMonth(currentDate);
-  const startDate = addDays(monthStart, -getDay(monthStart));
-  const days = eachDayOfInterval({ start: startDate, end: monthEnd });
-
   return (
     <div className={cn(
       themes[theme as keyof typeof themes],
       sizes[size],
-      'p-6 rounded-2xl shadow-xl border-2 border-blue-200'
+      'p-6 rounded-2xl shadow-fun hover:shadow-fun-hover transition-shadow duration-300'
     )}>
       <CalendarHeader 
         currentDate={currentDate}
         onDateChange={onDateChange}
       />
       <CalendarGrid
-        days={days}
         currentDate={currentDate}
         showHolidays={showHolidays}
         events={events}
