@@ -36,15 +36,15 @@ export const PersonalEvents: React.FC<PersonalEventsProps> = ({
   };
 
   return (
-    <div className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-xl border-2 border-blue-200">
+    <div className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-fun hover:shadow-fun-hover transition-shadow duration-300">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-bold text-blue-600">Personal Events</h3>
+        <h3 className="text-xl font-bold text-primary">Personal Events</h3>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="p-2 hover:bg-blue-50 rounded-full transition-colors text-blue-500 hover:text-blue-600"
+          className="p-2 rounded-full bg-primary-light hover:bg-primary text-white transition-colors duration-200 animate-bounce-slow"
           aria-label="Add new event"
         >
-          <Plus className="w-6 h-6" />
+          <Plus size={24} />
         </button>
       </div>
       
