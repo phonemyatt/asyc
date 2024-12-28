@@ -16,8 +16,8 @@ export const HolidayList: React.FC<HolidayListProps> = ({ showHolidays, currentD
   const monthHolidayEntries = Object.entries(monthHolidays);
 
   return (
-    <div className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-xl border-2 border-blue-200">
-      <h3 className="text-xl font-bold text-blue-600 mb-4">
+    <div className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-fun hover:shadow-fun-hover transition-shadow duration-300">
+      <h3 className="text-xl font-bold text-primary mb-4">
         Holidays in {format(currentDate, 'MMMM yyyy')}
       </h3>
       <div className="grid grid-cols-1 gap-3">
@@ -33,7 +33,7 @@ export const HolidayList: React.FC<HolidayListProps> = ({ showHolidays, currentD
             return (
               <div
                 key={date}
-                className="flex items-center space-x-3 p-3 rounded-full hover:bg-blue-50 transition-colors border-2 border-blue-100"
+                className="flex items-center space-x-3 p-3 rounded-full hover:bg-blue-50 transition-colors"
               >
                 <div className={cn(
                   'w-8 h-8',
