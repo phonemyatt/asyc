@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Clock } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Event, EventColors } from '../../types/events';
 
@@ -22,9 +22,10 @@ export const EventItem: React.FC<EventItemProps> = ({ event, onDelete }) => {
           <span className="text-base font-semibold text-blue-700">
             {event.title}
           </span>
-          <span className="text-sm text-blue-400">
-            {format(event.date, 'MMMM d, yyyy')}
-          </span>
+          <div className="flex items-center gap-2 text-sm text-blue-400">
+            <Clock className="w-4 h-4" />
+            <span>{format(event.date, 'MMMM d, yyyy h:mm a')}</span>
+          </div>
         </div>
       </div>
       {onDelete && (
