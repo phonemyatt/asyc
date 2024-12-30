@@ -1,11 +1,4 @@
 import React from 'react';
-import {
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval,
-  addDays,
-  getDay,
-} from 'date-fns';
 import { cn } from '../lib/utils';
 import { themes, sizes } from '../data/calendarThemes';
 import { CalendarHeader } from './calendar/CalendarHeader';
